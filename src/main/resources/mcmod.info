@@ -1,0 +1,12 @@
+[{
+	"modid": "ae2wut",
+	"name": "AE2UELWirelessUniversalTerminal",
+	"version": "1.0.0",
+	"mcversion": "1.12.2",
+	"description": "${mod_description}",
+	"authorList": ["Circulation_"],
+	"credits": "${mod_credits}",
+	"url": "${mod_url}",
+	"updateJSON": "${mod_update_json}",
+	"logoFile": "${mod_logo_path}"
+}]
