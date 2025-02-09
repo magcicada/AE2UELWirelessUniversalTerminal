@@ -1,9 +1,14 @@
-item.ae2wut.wireless_universal_terminal.name=无线通用终端
+# Item Name
+item.ae2wut.wireless_universal_terminal.name=Wireless Universal Terminal
 
-item.wut.tooltip=§9手持时使用shift+滚轮切换模式
-item.wut.tooltip1=§9可以使用合成进去的终端原本的快捷键打开
-item.wut.tooltip2=§6按住shift查看更多介绍
-item.wut.shift_tooltip=持有终端：
-item.wut.shift_tooltip1=无
+# Tooltips
+item.wut.tooltip=§9Hold Shift + Scroll to switch modes
+item.wut.tooltip1=§9Supports original terminal shortcuts
+item.wut.tooltip2=§6Hold §lSHIFT§r§6 for details
 
-itemGroup.ae2wut=无线通用终端
+# Shift Tooltips
+item.wut.shift_tooltip=§bIntegrated Terminals:
+item.wut.shift_tooltip1=§7None
+
+# Creative Tab
+itemGroup.ae2wut=Wireless Universal Terminals

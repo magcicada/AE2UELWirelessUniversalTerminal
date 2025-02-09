@@ -47,7 +47,7 @@ public class DynamicUniversalRecipe extends net.minecraftforge.registries.IForge
                     if (foundItem) return false;
                     foundItem = true;
                 } else {
-                    return false; // 包含其他物品则无效
+                    return false;
                 }
             }
         }
@@ -77,7 +77,7 @@ public class DynamicUniversalRecipe extends net.minecraftforge.registries.IForge
         }
 
         NBTTagIntArray modes;
-        if (tag.hasKey("modes", 11)) { // 11 表示 int array 类型
+        if (tag.hasKey("modes", 11)) {
             modes = (NBTTagIntArray) tag.getTag("modes");
         } else {
             modes = new NBTTagIntArray(new int[0]);
@@ -86,7 +86,7 @@ public class DynamicUniversalRecipe extends net.minecraftforge.registries.IForge
         int[] modesArray = modes.getIntArray();
         for (int existingMode : modesArray) {
             if (existingMode == mode) {
-                return ItemStack.EMPTY; // 模式已存在
+                return ItemStack.EMPTY;
             }
         }
 

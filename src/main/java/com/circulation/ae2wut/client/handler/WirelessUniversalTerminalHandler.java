@@ -73,7 +73,11 @@ public class WirelessUniversalTerminalHandler {
                         }
 
                         while (list.size() != 1 && !list.contains(newVal)) {
-                            newVal = (newVal + 1) % listMax;
+                            if (Mouse.getEventDWheel() > 0){
+                                newVal = (newVal - 1) % listMax;
+                            } else {
+                                newVal = (newVal + 1) % listMax;
+                            }
                         }
 
                         stack.getTagCompound().setInteger("mode", newVal);

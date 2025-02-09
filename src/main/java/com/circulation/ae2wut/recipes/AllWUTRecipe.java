@@ -17,8 +17,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.util.*;
 
 import static com.circulation.ae2wut.item.ItemWirelessUniversalTerminal.*;
-import static com.glodblock.github.loader.FCItems.WIRELESS_FLUID_PATTERN_TERMINAL;
-import static com.mekeng.github.common.ItemAndBlocks.WIRELESS_GAS_TERMINAL;
+import com.glodblock.github.loader.FCItems;
+import com.mekeng.github.common.ItemAndBlocks;
 
 public class AllWUTRecipe {
 
@@ -35,27 +35,39 @@ public class AllWUTRecipe {
     public static final Map<Integer,ItemStack> itemList = getIngredient();
 
     private static Map<Integer,ItemStack> getIngredient() {
-        Map<Integer,ItemStack> map = new HashMap<>();
-        map.put(1,AEItems.wirelessCraftingTerminal().maybeStack(1).get());
-        map.put(2,AEItems.wirelessFluidTerminal().maybeStack(1).get());
-        map.put(3,AEItems.wirelessPatternTerminal().maybeStack(1).get());
+        Map<Integer, ItemStack> map = new HashMap<>();
+        map.put(1, AEItems.wirelessCraftingTerminal().maybeStack(1).get());
+        map.put(2, AEItems.wirelessFluidTerminal().maybeStack(1).get());
+        map.put(3, AEItems.wirelessPatternTerminal().maybeStack(1).get());
 
         if (Loader.isModLoaded("ae2fc")) {
-            map.put(4,new ItemStack(WIRELESS_FLUID_PATTERN_TERMINAL));
+            addAE2FC(map);
         }
 
         if (Loader.isModLoaded("mekeng")) {
-            map.put(5,new ItemStack(WIRELESS_GAS_TERMINAL));
+            addMEKEng(map);
         }
 
         if (Loader.isModLoaded("ae2exttable")) {
-            map.put(6, new ItemStack(ItemRegistry.WIRELESS_BASIC_TERMINAL));
-            map.put(7, new ItemStack(ItemRegistry.WIRELESS_ADVANCED_TERMINAL));
-            map.put(8, new ItemStack(ItemRegistry.WIRELESS_ELITE_TERMINAL));
-            map.put(9, new ItemStack(ItemRegistry.WIRELESS_ULTIMATE_TERMINAL));
+            addAE2Exttable(map);
         }
 
         return map;
+    }
+
+    private static void addAE2FC(Map<Integer,ItemStack> map) {
+        map.put(4, FCItems.WIRELESS_FLUID_PATTERN_TERMINAL.getDefaultInstance());
+    }
+
+    private static void addMEKEng(Map<Integer,ItemStack> map) {
+        map.put(5, ItemAndBlocks.WIRELESS_GAS_TERMINAL.getDefaultInstance());
+    }
+
+    private static void addAE2Exttable(Map<Integer,ItemStack> map) {
+        map.put(6, ItemRegistry.WIRELESS_BASIC_TERMINAL.getDefaultInstance());
+        map.put(7, ItemRegistry.WIRELESS_ADVANCED_TERMINAL.getDefaultInstance());
+        map.put(8, ItemRegistry.WIRELESS_ELITE_TERMINAL.getDefaultInstance());
+        map.put(9, ItemRegistry.WIRELESS_ULTIMATE_TERMINAL.getDefaultInstance());
     }
 
     public static void reciperRegister(){
