@@ -3,6 +3,7 @@ package com.circulation.ae2wut;
 import com.circulation.ae2wut.network.UpdateItemModeMessage;
 import com.circulation.ae2wut.network.WirelessTerminalRefresh;
 import com.circulation.ae2wut.proxy.CommonProxy;
+import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -32,6 +33,7 @@ public class AE2UELWirelessUniversalTerminal {
 
     @Mod.Instance(MOD_ID)
     public static AE2UELWirelessUniversalTerminal instance = null;
+    public static LogWrapper logger;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

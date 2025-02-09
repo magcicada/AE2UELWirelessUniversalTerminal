@@ -4,7 +4,7 @@
 ## About
 This mod adds wireless universal terminals for [AE2UEL](https://github.com/AE2-UEL/Applied-Energistics-2). The inspiration for this mod came from p455w0rd's mod, as AE2UEL comes with wireless terminals such as wireless crafting terminals, but p455w0rd did not make them compatible. So, I created this mod and added compatibility for [AE2FluidCraft-Rework](https://github.com/Circulate233/AE2FluidCraft-Rework)'s wireless fluid pattern terminals and [Extended-Crafting-Terminals-For-AE2](https://github.com/0xC4DE/Extended-Crafting-Terminals-For-AE2).
 
-took some heavy inspiration from AE2-UEL source code
+took some many inspiration from AE2-UEL source code
 
 
 ## Licenses
