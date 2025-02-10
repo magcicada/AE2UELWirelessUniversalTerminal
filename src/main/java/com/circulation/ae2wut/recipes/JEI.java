@@ -4,10 +4,6 @@ import mezz.jei.api.*;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.plugins.vanilla.crafting.ShapelessRecipeWrapper;
 
-/**
- * @author p455w0rd
- *
- */
 @JEIPlugin
 public class JEI implements IModPlugin {
 
