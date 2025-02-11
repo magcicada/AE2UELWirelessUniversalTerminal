@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import com._0xc4de.ae2exttable.items.ItemRegistry;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.*;
@@ -55,19 +56,22 @@ public class AllWUTRecipe {
         return map;
     }
 
+    @Optional.Method(modid = "ae2fc")
     private static void addAE2FC(Map<Integer,ItemStack> map) {
-        map.put(4, FCItems.WIRELESS_FLUID_PATTERN_TERMINAL.getDefaultInstance());
+        map.put(4, new ItemStack(FCItems.WIRELESS_FLUID_PATTERN_TERMINAL));
     }
 
+    @Optional.Method(modid = "mekeng")
     private static void addMEKEng(Map<Integer,ItemStack> map) {
-        map.put(5, ItemAndBlocks.WIRELESS_GAS_TERMINAL.getDefaultInstance());
+        map.put(5, new ItemStack(ItemAndBlocks.WIRELESS_GAS_TERMINAL));
     }
 
+    @Optional.Method(modid = "ae2exttable")
     private static void addAE2Exttable(Map<Integer,ItemStack> map) {
-        map.put(6, ItemRegistry.WIRELESS_BASIC_TERMINAL.getDefaultInstance());
-        map.put(7, ItemRegistry.WIRELESS_ADVANCED_TERMINAL.getDefaultInstance());
-        map.put(8, ItemRegistry.WIRELESS_ELITE_TERMINAL.getDefaultInstance());
-        map.put(9, ItemRegistry.WIRELESS_ULTIMATE_TERMINAL.getDefaultInstance());
+        map.put(6, new ItemStack(ItemRegistry.WIRELESS_BASIC_TERMINAL));
+        map.put(7, new ItemStack(ItemRegistry.WIRELESS_ADVANCED_TERMINAL));
+        map.put(8, new ItemStack(ItemRegistry.WIRELESS_ELITE_TERMINAL));
+        map.put(9, new ItemStack(ItemRegistry.WIRELESS_ULTIMATE_TERMINAL));
     }
 
     public static void reciperRegister(){
