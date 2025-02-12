@@ -34,7 +34,8 @@ public class MixinCPacketUseKeybindHandler {
                     list = Arrays.stream(stackInSlot.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
                 }
                 if (stackInSlot.getItem() == ItemWirelessUniversalTerminal.INSTANCE && list != null && list.contains(4)) {
-                    ItemWirelessUniversalTerminal.INSTANCE.nbtChange(player, 4);
+                    ItemWirelessUniversalTerminal.INSTANCE.nbtChangeB(stackInSlot);
+                    ItemWirelessUniversalTerminal.INSTANCE.nbtChange(stackInSlot, 4);
                     Util.openWirelessTerminal(stackInSlot, i, false, player.world, player, GuiType.WIRELESS_FLUID_PATTERN_TERMINAL);
                     return;
                 }

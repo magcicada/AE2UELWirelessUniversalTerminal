@@ -11,8 +11,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
-import static com.circulation.ae2wut.recipes.DynamicUniversalRecipe.RECIPES;
-
 @Mod.EventBusSubscriber(modid = AE2UELWirelessUniversalTerminal.MOD_ID)
 public class WirelessUniversalTerminalHandler {
 
@@ -31,7 +29,7 @@ public class WirelessUniversalTerminalHandler {
     @SubscribeEvent
     public static void onRegisterRecipes(RegistryEvent.Register<IRecipe> event) {
         AllWUTRecipe.reciperRegister();
-        event.getRegistry().registerAll(RECIPES.toArray(new DynamicUniversalRecipe[0]));
+        event.getRegistry().registerAll(DynamicUniversalRecipe.RECIPES.toArray(new DynamicUniversalRecipe[0]));
     }
 
 }

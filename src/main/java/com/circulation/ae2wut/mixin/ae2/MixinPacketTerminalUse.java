@@ -39,7 +39,8 @@ public abstract class MixinPacketTerminalUse extends AppEngPacket {
                     list = Arrays.stream(is.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
                 }
                 if (list != null && list.contains(mode)) {
-                    ItemWirelessUniversalTerminal.INSTANCE.nbtChange(player, mode);
+                    ItemWirelessUniversalTerminal.INSTANCE.nbtChangeB(is);
+                    ItemWirelessUniversalTerminal.INSTANCE.nbtChange(is, mode);
                     openGui(is, i, player, false);
                     ci.cancel();
                     return;

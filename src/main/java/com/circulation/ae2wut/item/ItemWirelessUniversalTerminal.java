@@ -53,6 +53,8 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
     IWirelessTermRegistry registry = AEApi.instance().registries().wireless();
     public static ItemWirelessUniversalTerminal INSTANCE = new ItemWirelessUniversalTerminal();
 
+    public static int CoolingTime = 0;
+
     public static int[] getAllMode() {
         List<Integer> modes = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
 
@@ -127,7 +129,7 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
                         }
                     }
                     break;
-                case 6,7,8,9:
+                case 6, 7, 8, 9:
                     if (Loader.isModLoaded("ae2exttable")) {
                         if (list.contains(mode)) {
                             openWirelessTerminalGui(player.getHeldItem(hand), player, getGui(mode), mode);
@@ -155,7 +157,7 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
                 return super.getItemStackDisplayName(stack);
             }
         } else {
-            return "";
+            return super.getItemStackDisplayName(stack);
         }
     }
 
@@ -194,18 +196,7 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
         if (mode != 0 && mode != 2) {
             ItemStack item = player.getHeldItem(hand);
             if (item.hasTagCompound()) {
-                item.getTagCompound().setInteger("craft", 1);
-                if (item.getTagCompound().hasKey("cache")) {
-                    NBTTagList cache = item.getTagCompound().getCompoundTag("cache").getTagList(String.valueOf(mode), 10);
-                    if (cache.tagCount() != 0) {
-                        if (mode < 6) {
-                            item.getTagCompound().getCompoundTag("craftingGrid").setTag("Items", cache);
-                        } else if (mode < 10) {
-                            item.getTagCompound().setTag("crafting", cache);
-                        }
-                        item.getTagCompound().getCompoundTag("cache").removeTag(String.valueOf(mode));
-                    }
-                }
+                nbtChange(item,mode);
             }
         }
     }
@@ -214,45 +205,33 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack item = player.inventory.getStackInSlot(i);
             if (item.hasTagCompound() && item.getItem() == INSTANCE) {
-                item.getTagCompound().setInteger("mode", mode);
-                item.getTagCompound().setInteger("craft", 1);
-                if (mode != 0 && mode != 2 && mode != 5) {
-                    List<Integer> list = Arrays.stream(item.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
-                    if (list.contains(mode)) {
-                        NBTTagList cache = item.getTagCompound().getCompoundTag("cache").getTagList(String.valueOf(mode), 10);
-                        if (cache.tagCount() != 0) {
-                            if (mode < 6) {
-                                item.getTagCompound().getCompoundTag("craftingGrid").setTag("Items", cache);
-                            } else if (mode < 10){
-                                item.getTagCompound().setTag("crafting", cache);
-                            }
-                            item.getTagCompound().getCompoundTag("cache").removeTag(String.valueOf(mode));
-                        }
-                    }
-                }
+                nbtChange(item,mode);
             }
         }
         if (Loader.isModLoaded("baubles")) {
             for (int i = 0; i < BaublesApi.getBaublesHandler(player).getSlots(); i++) {
                 ItemStack item = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
                 if (item.hasTagCompound() && item.getItem() == INSTANCE) {
-                    item.getTagCompound().setInteger("mode", mode);
-                    item.getTagCompound().setInteger("craft", 1);
-                    if (mode != 0 && mode != 2 && mode != 5) {
-                        List<Integer> list = Arrays.stream(item.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
-                        if (list.contains(mode)) {
-                            NBTTagList cache = item.getTagCompound().getCompoundTag("cache").getTagList(String.valueOf(mode), 10);
-                            if (cache.tagCount() != 0) {
-                                if (mode < 6) {
-                                    item.getTagCompound().getCompoundTag("craftingGrid").setTag("Items", cache);
-                                } else if (mode < 10){
-                                    item.getTagCompound().setTag("crafting", cache);
-                                }
+                    nbtChange(item,mode);
+                }
+            }
+        }
+    }
 
-                            }
-                            item.getTagCompound().getCompoundTag("cache").removeTag(String.valueOf(mode));
-                        }
+    public void nbtChange(ItemStack item, int mode) {
+        item.getTagCompound().setInteger("mode", mode);
+        item.getTagCompound().setInteger("craft", 1);
+        if (mode != 0 && mode != 2 && mode != 5) {
+            List<Integer> list = Arrays.stream(item.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
+            if (list.contains(mode)) {
+                NBTTagList cache = item.getTagCompound().getCompoundTag("cache").getTagList(String.valueOf(mode), 10);
+                if (cache.tagCount() != 0) {
+                    if (mode < 6) {
+                        item.getTagCompound().getCompoundTag("craftingGrid").setTag("Items", cache);
+                    } else if (mode < 10) {
+                        item.getTagCompound().setTag("crafting", cache);
                     }
+                    item.getTagCompound().getCompoundTag("cache").removeTag(String.valueOf(mode));
                 }
             }
         }
@@ -262,94 +241,71 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack item = player.inventory.getStackInSlot(i);
             if (item.hasTagCompound() && item.getItem() == INSTANCE) {
-                int mode = item.getTagCompound().getInteger("mode");
-                item.getTagCompound().setInteger("craft", 0);
-                if (mode != 0 && mode != 2 && mode != 5) {
-                    List<Integer> list = Arrays.stream(item.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
-                    if (list.contains(mode)) {
-                        item.getTagCompound().setInteger("mode", mode);
-                        NBTTagList items = item.getTagCompound().getCompoundTag("craftingGrid").getTagList("Items", 10);
-                        if (Loader.isModLoaded("ae2exttable") && item.getTagCompound().hasKey("crafting")) {
-                            int ii = 0;
-                            int iii = 0;
-                            int iiii = 0;
-                            switch (mode){case 6: iii = 9;break; case 7: iii = 25;break; case 8: iii = 49;break; case 9: iii = 81;break;}
-                            NBTTagList nbtList = new NBTTagList();
-                            Iterator<NBTBase> iterator = item.getTagCompound().getTagList("crafting", 10).iterator();
-                            while (iterator.hasNext() && ii < iii){
-                                NBTBase nbt = iterator.next();
-                                if (nbt instanceof NBTTagCompound n){
-                                    if (!n.getString("id").endsWith("air") || !n.getString("id").startsWith("minecraft")){
-                                        nbtList.appendTag(nbt);
-                                        iiii++;
-                                    } else {
-                                        nbtList.appendTag(new NBTTagCompound());
-                                    }
-                                }
-                                ii++;
-                            }
-                            if (iiii > 0) {
-                                items = nbtList;
-                            }
-                        }
-                        if (items.tagCount() != 0) {
-                            if (!item.getTagCompound().hasKey("cache")) {
-                                item.getTagCompound().setTag("cache", new NBTTagCompound());
-                            }
-                            item.getTagCompound().getCompoundTag("cache").setTag(String.valueOf(mode), items);
-                        }
-                        item.getTagCompound().getCompoundTag("craftingGrid").removeTag("Items");
-                        item.getTagCompound().removeTag("crafting");
-                    }
-                }
+                nbtChangeB(item);
             }
         }
         if (Loader.isModLoaded("baubles")) {
             for (int i = 0; i < BaublesApi.getBaublesHandler(player).getSlots(); i++) {
                 ItemStack item = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
                 if (item.hasTagCompound() && item.getItem() == INSTANCE) {
-                    int mode = item.getTagCompound().getInteger("mode");
-                    item.getTagCompound().setInteger("craft", 0);
-                    if (mode != 0 && mode != 2 && mode != 5) {
-                        List<Integer> list = Arrays.stream(item.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
-                        if (list.contains(mode)) {
-                            if (!item.getTagCompound().hasKey("cache")) {
-                                item.getTagCompound().setTag("cache", new NBTTagCompound());
-                            }
-                            item.getTagCompound().setInteger("mode", mode);
-                            NBTTagList items = item.getTagCompound().getCompoundTag("craftingGrid").getTagList("Items", 10);
-                            if (Loader.isModLoaded("ae2exttable") && item.getTagCompound().hasKey("crafting")) {
-                                int ii = 0;
-                                int iii = 0;
-                                int iiii = 0;
-                                switch (mode){case 6: iii = 9;break; case 7: iii = 25;break; case 8: iii = 49;break; case 9: iii = 81;break;}
-                                NBTTagList nbtList = new NBTTagList();
-                                Iterator<NBTBase> iterator = item.getTagCompound().getTagList("crafting", 10).iterator();
-                                while (iterator.hasNext() && ii < iii){
-                                    NBTBase nbt = iterator.next();
-                                    if (nbt instanceof NBTTagCompound n){
-                                        if (!n.getString("id").endsWith("air") || !n.getString("id").startsWith("minecraft")){
-                                            nbtList.appendTag(nbt);
-                                            iiii++;
-                                        } else {
-                                            nbtList.appendTag(new NBTTagCompound());
-                                        }
-                                    }
-                                    ii++;
-                                }
-                                if (iiii > 0) {
-                                    items = nbtList;
-                                }
-                            }
-                            if (items.tagCount() != 0) {
-                                item.getTagCompound().getCompoundTag("cache").setTag(String.valueOf(mode), items);
-                                item.getTagCompound().getCompoundTag("craftingGrid").removeTag("Items");
+                    nbtChangeB(item);
+                }
+            }
+        }
+    }
+
+    public void nbtChangeB(ItemStack item) {
+        int mode = item.getTagCompound().getInteger("mode");
+        item.getTagCompound().setInteger("craft", 0);
+        if (mode != 0 && mode != 2 && mode != 5) {
+            List<Integer> list = Arrays.stream(item.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
+            if (list.contains(mode)) {
+                item.getTagCompound().setInteger("mode", mode);
+                NBTTagList items = item.getTagCompound().getCompoundTag("craftingGrid").getTagList("Items", 10);
+                if (Loader.isModLoaded("ae2exttable") && item.getTagCompound().hasKey("crafting")) {
+                    int ii = 0;
+                    int iii = 0;
+                    int iiii = 0;
+                    switch (mode) {
+                        case 6:
+                            iii = 9;
+                            break;
+                        case 7:
+                            iii = 25;
+                            break;
+                        case 8:
+                            iii = 49;
+                            break;
+                        case 9:
+                            iii = 81;
+                            break;
+                    }
+                    NBTTagList nbtList = new NBTTagList();
+                    Iterator<NBTBase> iterator = item.getTagCompound().getTagList("crafting", 10).iterator();
+                    while (iterator.hasNext() && ii < iii) {
+                        NBTBase nbt = iterator.next();
+                        if (nbt instanceof NBTTagCompound n) {
+                            if (!n.getString("id").endsWith("air") || !n.getString("id").startsWith("minecraft")) {
+                                nbtList.appendTag(nbt);
+                                iiii++;
                             } else {
-                                item.getTagCompound().getCompoundTag("craftingGrid").removeTag("Items");
+                                nbtList.appendTag(new NBTTagCompound());
                             }
                         }
+                        ii++;
+                    }
+                    if (iiii > 0) {
+                        items = nbtList;
                     }
                 }
+                if (items.tagCount() != 0) {
+                    if (!item.getTagCompound().hasKey("cache")) {
+                        item.getTagCompound().setTag("cache", new NBTTagCompound());
+                    }
+                    item.getTagCompound().getCompoundTag("cache").setTag(String.valueOf(mode), items);
+                }
+                item.getTagCompound().getCompoundTag("craftingGrid").removeTag("Items");
+                item.getTagCompound().removeTag("crafting");
             }
         }
     }
