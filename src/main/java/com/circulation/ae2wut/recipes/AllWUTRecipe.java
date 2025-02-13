@@ -29,7 +29,7 @@ public class AllWUTRecipe {
 
     private static NBTTagCompound getNBT() {
         NBTTagCompound nbt = Platform.openNbtData(ItemWireless);
-        nbt.setIntArray("modes", getAllMode());
+        nbt.setIntArray("modes", allMode);
         return nbt;
     }
 
@@ -96,7 +96,7 @@ public class AllWUTRecipe {
         );
         ItemStack ItemWirelessALL = ItemWireless.copy();
         NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setIntArray("modes",getAllMode());
+        nbt.setIntArray("modes",allMode);
         ItemWirelessALL.setTagCompound(nbt);
         GameRegistry.addShapelessRecipe(
                 new ResourceLocation(AE2UELWirelessUniversalTerminal.MOD_ID, NAME + "all"),

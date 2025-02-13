@@ -18,6 +18,7 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Mouse;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,32 +52,32 @@ public class WirelessUniversalTerminalHandler {
     public void onMouseEvent(MouseEvent event) {
         if (mc.player != null && mc.player.isSneaking()) {
             ItemStack stack = mc.player.getHeldItemMainhand();
-            int delta = -Mouse.getEventDWheel();
+            int delta = - Mouse.getEventDWheel();
             if (delta % 120 == 0){
                 delta = delta / 120 ;
             }
-            if (stack.getItem() instanceof ItemWirelessUniversalTerminal && delta != 0) {
-                List<Integer> list = null;
+            if (delta != 0 && stack.getItem() instanceof ItemWirelessUniversalTerminal) {
+                List<Integer> list = new ArrayList<>();
                 if (stack.getTagCompound() != null) {
                     if (stack.getTagCompound().hasKey("modes")) {
-                        list = Arrays.stream(stack.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList());
+                        list.addAll(Arrays.stream(stack.getTagCompound().getIntArray("modes")).boxed().collect(Collectors.toList()));
                     }
-                    if (list != null) {
-                        int listMax = Arrays.stream(stack.getTagCompound().getIntArray("modes")).max().getAsInt() + 1;
+                    if (!list.contains(0)){
+                        list.add(0);
+                    }
+                    if (list.size() > 1) {
+                        final int listMax = Arrays.stream(stack.getTagCompound().getIntArray("modes")).max().getAsInt() + 1;
+                        int newVal = (stack.getTagCompound().getInteger("mode") + delta) % listMax;
 
-                        int newVal = stack.getTagCompound().getInteger("mode") + (delta % listMax);
-
-                        if (newVal > 0) {
-                            newVal = newVal % listMax;
-                        } else if (newVal < 0) {
-                            newVal = listMax + newVal;
-                        }
-
-                        while (list.size() != 1 && !list.contains(newVal)) {
-                            if (Mouse.getEventDWheel() > 0){
-                                newVal = (newVal - 1) % listMax;
-                            } else {
+                        while (!list.contains(newVal)) {
+                            if (newVal < 0) {
+                                newVal = newVal + listMax;
+                                break;
+                            }
+                            if (delta > 0){
                                 newVal = (newVal + 1) % listMax;
+                            } else {
+                                newVal = (newVal - 1) % listMax;
                             }
                         }
 

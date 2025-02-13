@@ -53,9 +53,9 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
     IWirelessTermRegistry registry = AEApi.instance().registries().wireless();
     public static ItemWirelessUniversalTerminal INSTANCE = new ItemWirelessUniversalTerminal();
 
-    public static int CoolingTime = 0;
+    public static final int[] allMode = getAllMode();
 
-    public static int[] getAllMode() {
+    private static int[] getAllMode() {
         List<Integer> modes = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
 
         if (Loader.isModLoaded("ae2fc")) {
@@ -392,7 +392,7 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
         NBTTagCompound tag = Platform.openNbtData(charged);
         tag.setDouble("internalCurrentPower", this.getAEMaxPower(charged));
         tag.setDouble("internalMaxPower", this.getAEMaxPower(charged));
-        tag.setIntArray("modes", getAllMode());
+        tag.setIntArray("modes", allMode);
         itemStacks.add(charged);
     }
 
