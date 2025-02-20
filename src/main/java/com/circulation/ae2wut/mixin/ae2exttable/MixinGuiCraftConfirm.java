@@ -45,7 +45,7 @@ public abstract class MixinGuiCraftConfirm extends AEBaseGui {
     private void onInit(final InventoryPlayer inventoryPlayer, final ITerminalHost te, CallbackInfo ci) {
         if (te instanceof WirelessTerminalGuiObject term) {
             if (term.getItemStack().getItem() instanceof ItemWirelessUniversalTerminal t) {
-                this.ae2WirelessUniversalTerminal$extendedOriginalGui = t.getGuiType(term.getItemStack());
+                this.ae2WirelessUniversalTerminal$extendedOriginalGui = ItemWirelessUniversalTerminal.getGuiType(term.getItemStack());
             }
         }
     }
@@ -70,5 +70,5 @@ public abstract class MixinGuiCraftConfirm extends AEBaseGui {
     }
 
     @Shadow
-    public void drawFG(int i, int i1, int i2, int i3) {}
+    public abstract void drawFG(int i, int i1, int i2, int i3);
 }

@@ -30,7 +30,7 @@ public abstract class MixinContainerCraftConfirm extends AEBaseContainer {
                     case 6, 7, 8, 9: {
                         IInventorySlotAware i = ((IInventorySlotAware) this.obj);
                         EntityPlayer player = this.getInventoryPlayer().player;
-                        PartGuiHandler.openWirelessTerminalGui(this.obj.getItemStack(), i.getInventorySlot(), i.isBaubleSlot(), player.world, player, t.getGuiType(this.obj.getItemStack()));
+                        PartGuiHandler.openWirelessTerminalGui(this.obj.getItemStack(), i.getInventorySlot(), i.isBaubleSlot(), player.world, player, ItemWirelessUniversalTerminal.getGuiType(this.obj.getItemStack()));
                         ci.cancel();
                     }
                 }

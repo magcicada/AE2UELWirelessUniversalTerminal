@@ -49,7 +49,7 @@ public abstract class MixinGuiCraftAmount extends AEBaseGui {
                                     this.buttonList.remove(b);
                                 }
                             }
-                            this.ae2WirelessUniversalTerminal$extendedOriginalGui = item.getGuiType(term.getItemStack());
+                            this.ae2WirelessUniversalTerminal$extendedOriginalGui = ItemWirelessUniversalTerminal.getGuiType(term.getItemStack());
                             ItemStack myIcon = new ItemStack(ItemRegistry.partByGuiType(this.ae2WirelessUniversalTerminal$extendedOriginalGui));
                             this.buttonList.add((this.originalGuiBtn = new GuiTabButton(this.guiLeft + 154, this.guiTop, myIcon, myIcon.getDisplayName(), this.itemRender)));
                         }

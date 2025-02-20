@@ -1,16 +1,16 @@
 {
-	"package": "com.circulation.ae2wut.mixin.ae2exttable",
-	"refmap": "mixins.ae2wut.refmap.json",
-	"target": "@env(DEFAULT)",
-	"minVersion": "0.8",
-	"compatibilityLevel": "JAVA_8",
-	"client": [
-	],
-	"mixins": [
-		"MixinContainerCraftConfirm",
-		"MixinCraftingCPUStatusTWO",
-		"MixinGuiCraftAmount",
-		"MixinGuiCraftConfirm",
-		"MixinItemRegistry"
-	]
+  "package": "com.circulation.ae2wut.mixin.ae2exttable",
+  "refmap": "mixins.ae2wut.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+  ],
+  "mixins": [
+    "MixinContainerCraftConfirm",
+    "MixinCraftingCPUStatusTWO",
+    "MixinGuiCraftAmount",
+    "MixinGuiCraftConfirm",
+    "MixinWirelessTerminalGuiObjectTwo"
+  ]
 }

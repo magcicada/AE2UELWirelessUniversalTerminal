@@ -209,11 +209,16 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
             }
         }
         if (Loader.isModLoaded("baubles")) {
-            for (int i = 0; i < BaublesApi.getBaublesHandler(player).getSlots(); i++) {
-                ItemStack item = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
-                if (item.hasTagCompound() && item.getItem() == INSTANCE) {
-                    nbtChange(item,mode);
-                }
+            baublesNBT(player, mode);
+        }
+    }
+
+    @Optional.Method(modid = "baubles")
+    public void baublesNBT(EntityPlayer player, int mode) {
+        for (int i = 0; i < BaublesApi.getBaublesHandler(player).getSlots(); i++) {
+            ItemStack item = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
+            if (item.hasTagCompound() && item.getItem() == INSTANCE) {
+                nbtChange(item,mode);
             }
         }
     }
@@ -245,11 +250,16 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
             }
         }
         if (Loader.isModLoaded("baubles")) {
-            for (int i = 0; i < BaublesApi.getBaublesHandler(player).getSlots(); i++) {
-                ItemStack item = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
-                if (item.hasTagCompound() && item.getItem() == INSTANCE) {
-                    nbtChangeB(item);
-                }
+            baublesNBTB(player);
+        }
+    }
+
+    @Optional.Method(modid = "baubles")
+    public void baublesNBTB(EntityPlayer player) {
+        for (int i = 0; i < BaublesApi.getBaublesHandler(player).getSlots(); i++) {
+            ItemStack item = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
+            if (item.hasTagCompound() && item.getItem() == INSTANCE) {
+                nbtChangeB(item);
             }
         }
     }
@@ -397,7 +407,7 @@ public class ItemWirelessUniversalTerminal extends ToolWirelessTerminal {
     }
 
     @Optional.Method(modid = "ae2exttable")
-    public AE2ExtendedGUIs getGuiType(ItemStack item) {
+    public static AE2ExtendedGUIs getGuiType(ItemStack item) {
         if (item.hasTagCompound()) {
             int mode = item.getTagCompound().getInteger("mode");
             return getGui(mode);

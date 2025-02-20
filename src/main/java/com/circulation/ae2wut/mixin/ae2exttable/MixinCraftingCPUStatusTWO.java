@@ -36,16 +36,16 @@ public class MixinCraftingCPUStatusTWO extends GuiCraftingCPU {
     }
 
     @SuppressWarnings("InjectIntoConstructor")
-    @Inject(method="<init>(Lnet/minecraft/entity/player/InventoryPlayer;Lappeng/api/storage/ITerminalHost;)V",
-            at= @At(value = "INVOKE", target = "Lappeng/api/definitions/IDefinitions;parts()Lappeng/api/definitions/IParts;", shift = At.Shift.AFTER))
+    @Inject(method="<init>(Lnet/minecraft/entity/player/InventoryPlayer;Lappeng/api/storage/ITerminalHost;)V", at= @At(value = "INVOKE", target = "Lappeng/api/definitions/IDefinitions;parts()Lappeng/api/definitions/IParts;", shift = At.Shift.AFTER))
     private void onInit(final InventoryPlayer inventoryPlayer, final ITerminalHost te, CallbackInfo ci) {
         if (te instanceof WirelessTerminalGuiObject wt) {
             ItemStack item = wt.getItemStack();
-            if (item.getItem() instanceof ItemWirelessUniversalTerminal bt) {
+            if (item.getItem() instanceof ItemWirelessUniversalTerminal) {
                 if (item.getTagCompound() != null) {
-                    switch (item.getTagCompound().getInteger("mode")){
+                    int mode = item.getTagCompound().getInteger("mode");
+                    switch (mode){
                         case 6,7,8,9:
-                            this.ae2WirelessUniversalTerminal$extendedOriginalGui = bt.getGuiType(item);
+                            this.ae2WirelessUniversalTerminal$extendedOriginalGui = ItemWirelessUniversalTerminal.getGui(mode);
                             this.myIcon = item;
                     }
                 }

@@ -98,11 +98,13 @@ public class AllWUTRecipe {
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setIntArray("modes",allMode);
         ItemWirelessALL.setTagCompound(nbt);
-        GameRegistry.addShapelessRecipe(
-                new ResourceLocation(AE2UELWirelessUniversalTerminal.MOD_ID, NAME + "all"),
-                null,
-                ItemWirelessALL,
-                inputs.toArray(new Ingredient[0])
-        );
+        if (inputs.size() < 10) {
+            GameRegistry.addShapelessRecipe(
+                    new ResourceLocation(AE2UELWirelessUniversalTerminal.MOD_ID, NAME + "all"),
+                    null,
+                    ItemWirelessALL,
+                    inputs.toArray(new Ingredient[0])
+            );
+        }
     }
 }
