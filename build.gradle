@@ -155,6 +155,10 @@ repositories {
         url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
     }
     maven {
+        name = "jitpack.io"
+        url = uri("https://jitpack.io")
+    }
+    maven {
         name = "OvermindDL1 Maven"
         url = uri("https://gregtech.overminddl1.com/")
         mavenContent {
@@ -201,7 +205,8 @@ dependencies {
     compileOnlyApi("org.jetbrains:annotations:24.1.0")
     annotationProcessor("org.jetbrains:annotations:24.1.0")
 
-    implementation rfg.deobf("curse.maven:ae2-extended-life-570458:5378163")
+    //implementation rfg.deobf("curse.maven:ae2-extended-life-570458:5378163")
+    implementation rfg.deobf("com.github.magcicada:Applied-Energistics-2:a69cc07")
     implementation rfg.deobf("curse.maven:ae2-fluid-crafting-rework-623955:5504001")
     implementation rfg.deobf("curse.maven:MekanismEnergistics-1027681:5775101")
     implementation rfg.deobf("curse.maven:baubles-227083:2518667")
